@@ -7,7 +7,7 @@ environments:
       - build_and_publish_image
       - deploy_to_kubernetes
 pipelines:
-  - build_and_publish_image: # This is the name of the pipeline
+   build_and_publish_image: # This is the name of the pipeline
       group: kubernetes-samples
       materials:
         mygit: #this is the name of the material
@@ -16,7 +16,7 @@ pipelines:
       stages: # Stages run sequentially
         - build_and_publish_image: # this is the name of the stage
             jobs:
-              - build: # this is the name of the job
+              build: # this is the name of the job
                   elastic_profile_id: demo-app # this is configured in the settings of the elastic agent for Kubernetes plugin
                   tasks:
                     - exec: # indicates the type of task
@@ -28,7 +28,7 @@ pipelines:
                         command: bash
                         arguments:
                           - "-c" # so we can specify the command to be run as a string
-              - publish_image: # this is the name of the job
+              publish_image: # this is the name of the job
                   elastic_profile_id: demo-app # this is configured in the settings of the elastic agent for Kubernetes plugin
                   tasks:
                     - exec: # indicates the type of task
@@ -41,7 +41,7 @@ pipelines:
                         arguments:
                           - "-c" # so we can specify the command to be run as a string
                           - "docker push $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL"
-  - deploy_to_kubernetes:
+   deploy_to_kubernetes:
       group: kubernetes-samples
       materials:
         mygit: #this is the name of the material
