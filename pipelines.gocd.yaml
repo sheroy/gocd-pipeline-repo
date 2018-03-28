@@ -16,16 +16,16 @@ pipelines:
     stages: # Stages run sequentially
       - build_and_publish_image: # this is the name of the stage
           jobs:
-            - build: # this is the name of the job
-                elastic_profile_id: demo-app # this is configured in the settings of the elastic agent for Kubernetes plugin
-                tasks:
-                  - exec: # indicates the type of task
-                      command: bash
-                      arguments:
-                        - "-c" # so we can specify the command to be run as a string
-                        - "docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application"
-                  - exec: # indicates the type of task
-                      command: bash
-                      arguments:
-                        - "-c" # so we can specify the command to be run as a string
-                        - "docker run $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL npm test"
+            build: # this is the name of the job
+              elastic_profile_id: demo-app # this is configured in the settings of the elastic agent for Kubernetes plugin
+              tasks:
+                - exec: # indicates the type of task
+                    command: bash
+                    arguments:
+                      - "-c" # so we can specify the command to be run as a string
+                      - "docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application"
+                - exec: # indicates the type of task
+                    command: bash
+                    arguments:
+                      - "-c" # so we can specify the command to be run as a string
+                      - "docker run $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL npm test"
