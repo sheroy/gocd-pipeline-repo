@@ -5,7 +5,6 @@ environments:
       - DOCKERHUB_USERNAME: sheroy
     pipelines:
       - build_and_publish_image
-      - deploy_to_kubernetes
   pipelines:
     build_and_publish_image: # This is the name of the pipeline
       group: kubernetes-samples
