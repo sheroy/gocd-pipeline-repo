@@ -41,4 +41,23 @@ pipelines:
                         arguments:
                           - "-c" # so we can specify the command to be run as a string
                           - "docker push $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL"
-   
+     deploy_to_kubernetes:
+      group: kubernetes-samples
+      materials:
+        mygit: #this is the name of the material
+          # indicates the type of material and it's url
+          git: https://github.com/gocd-demo/node-bulletin-board.git
+      stages:
+        - deploy:
+            jobs:
+              deploy_to_kubernetes:
+                elastic_profile_id: demo-app
+                tasks:
+                  - exec:
+                      command: bash
+                      arguments:
+                        - -c
+                        - sed -i "s/##{image}/$DOCKERHUB_USERNAME\/bulletin-board:$GO_DEPENDENCY_LABEL_UPSTREAM/" bulletin-board-deployment.json
+                  - exec:
+                      command: ./app-deployment.sh
+ 
