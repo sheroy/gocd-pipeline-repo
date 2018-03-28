@@ -6,8 +6,8 @@ environments:
     pipelines:
       - build_and_publish_image
       - deploy_to_kubernetes
-pipelines:
-   build_and_publish_image: # This is the name of the pipeline
+  pipelines:
+    build_and_publish_image: # This is the name of the pipeline
       group: kubernetes-samples
       materials:
         mygit: #this is the name of the material
@@ -41,7 +41,7 @@ pipelines:
                         arguments:
                           - "-c" # so we can specify the command to be run as a string
                           - "docker push $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL"
-     deploy_to_kubernetes:
+    deploy_to_kubernetes:
       group: kubernetes-samples
       materials:
         mygit: #this is the name of the material
